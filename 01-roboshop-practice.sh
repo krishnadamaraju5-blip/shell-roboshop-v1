@@ -41,6 +41,8 @@ do
 )
         r53_record=${domain_name}
     fi
+
+    echo "$r53_record"
 done
 
 
