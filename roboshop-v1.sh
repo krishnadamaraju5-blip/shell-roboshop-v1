@@ -14,10 +14,28 @@ do
   --image-id $ami_id \
   --instance-type $instance_type \
   --security-group-ids $security_group \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
   --query 'Instances[0].InstanceId' \
   --output text
 )
     echo "$instance instance id: $instance_id"                # this line prints the instance id 
+
+
+    if [ $instance != "frontend" ]; then
+        IP=$(aws ec2 describe-instances \
+  --instance-ids $instance_id \
+  --query 'Reservations[0].Instances[0].PrivateIpAddress' \
+  --output text
+
+      r53_record=$instance.daws92s.cloud
+    else
+        IP=$(aws ec2 describe-instances \
+  --instance-ids $instance_id \
+  --query 'Reservations[*].Instances[*].PublicIpAddress' \
+  --output text
+     r53_record=$instance_daws92s.cloud
+)
+)
 done 
 
 
