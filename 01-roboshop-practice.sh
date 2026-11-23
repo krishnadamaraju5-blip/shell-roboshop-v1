@@ -15,7 +15,7 @@ do
   --image-id "$ami_id" \
   --instance-type "$instance_type" \
   --security-group-ids "$security_group" \
-  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-common}]" \
+  --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
   --query 'Instances[0].InstanceId' \
   --output text)
 
@@ -26,7 +26,7 @@ do
     # i wrote the if condition if arg is frontend it stores the public ip in IP variable if not it stores private ip in IP variable.
     #In r53_record if it is frontend it directly gives the public ip and if not it gives the instane name plus domain name.
 
-    if [ $instance -ne "frontend" ]; then
+    if [ $instance != "frontend" ]; then
         IP=$(aws ec2 describe-instances \
   --instance-ids $instance_id \
   --query "Reservations[0].Instances[0].PrivateIpAddress" \
