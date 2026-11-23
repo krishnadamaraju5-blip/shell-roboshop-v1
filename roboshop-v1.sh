@@ -29,17 +29,32 @@ do
         )
 
       r53_record=${instance}.${domain_name}
-      echo "$r53_record"
     else
         IP=$(aws ec2 describe-instances \
   --instance-ids $instance_id \
   --query 'Reservations[*].Instances[*].PublicIpAddress' \
   --output text
         )
-        r53_record=${domain_name}
-        echo "$r53_record"
+        r53_record=${domain_name}  
     fi
-     
+
+#With above script, if we give instance i.e. mongodb , catalogue, frontend it will create the instance and r53 record name not r53
+#Now we will write the script below for creation and updation of R53 record.
+
+    echo "$r53_record"
+    aws route53 change-resource-record-sets \
+  --hosted-zone-id $hosted_zone_id \
+  --change-batch '{
+    "Changes": [{
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "'$r53_record'",
+        "Type": "A",
+        "TTL": 1,
+        "ResourceRecords": [{"Value": "'$IP'"}]
+      }
+    }]
+  }'
 done 
 
 
