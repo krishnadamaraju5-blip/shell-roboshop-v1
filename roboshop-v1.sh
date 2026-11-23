@@ -4,7 +4,7 @@ ami_id="ami-0055977a6e828a4f4"
 instance_type="t3.micro"
 hosted_zone_id="Z00465481VWRQZXCOQUPB"
 domain_name="daws92s.cloud"
-security_group="sgr-0266014ef23396f91"
+security_group="sg-0bd4a23dde203c42e"
 
 
 for instance in $@
