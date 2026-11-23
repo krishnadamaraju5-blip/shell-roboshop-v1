@@ -35,7 +35,9 @@ do
   --query 'Reservations[*].Instances[*].PublicIpAddress' \
   --output text
         )
-     r53_record=${domain_name}
+        r53_record=${domain_name}
+    fi
+     
 done 
 
 
