@@ -33,6 +33,7 @@ do
   --output text
         )
         r53_record=${instance}.${domain_name}
+        echo "IP of instance is: $IP"
     else
         IP=$(aws ec2 describe-instances \
   --instance-ids $instance_id \
@@ -40,6 +41,7 @@ do
   --output text
 )
         r53_record=${domain_name}
+        echo "IP of instance is: $IP"
     fi
 
     echo "$r53_record"
