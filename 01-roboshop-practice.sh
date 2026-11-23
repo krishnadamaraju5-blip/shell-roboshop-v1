@@ -40,6 +40,7 @@ do
   --output text
 )
         r53_record=${domain_name}
+    fi
 done
 
 
