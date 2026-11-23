@@ -9,5 +9,9 @@ hosted_zone_id="Z00465481VWRQZXCOQUPB"
 security_group="sg-0bd4a23dde203c42e"
 
 for instance in $@
+do
     echo "Creating instance: $instance"
-    
+done
+
+
+
