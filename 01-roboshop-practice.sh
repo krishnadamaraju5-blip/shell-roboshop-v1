@@ -1,0 +1,13 @@
+# Write a script to create a instance for roboshop project
+
+#!/bin/bash
+
+ami_id="ami-0055977a6e828a4f4"
+instance_type="t3.micro"
+domain_name="daws92s.cloud"
+hosted_zone_id="Z00465481VWRQZXCOQUPB"
+security_group="sg-0bd4a23dde203c42e"
+
+for instance in $@
+    echo "Creating instance: $instance"
+    
