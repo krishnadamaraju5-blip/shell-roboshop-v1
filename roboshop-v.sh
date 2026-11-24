@@ -11,6 +11,7 @@ Y="\e[33m"
 N="\e[0m"
 
 for instance in $@
+do
     echo "Creating instance: $instance"
     instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
@@ -33,6 +34,7 @@ for instance in $@
     echo "$IP"
     r53_record=${domain_name}
     fi
+
 
     #update r53_record
 
@@ -58,3 +60,4 @@ for instance in $@
         ]
     }'
 
+done
