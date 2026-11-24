@@ -16,8 +16,11 @@ do
     instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --instance-type $instance_type \
-    --security-group-ids $security_group\
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]')
+    --security-group-ids $security_group \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
+    --query 'Instances[0].InstanceId' \
+    --output text
+    )
 
     if [ $instance != "frontend" ]; then
         IP=$(aws ec2 describe-instances \
@@ -38,7 +41,7 @@ do
 
     #update r53_record
 
-    echo r53_record
+    echo $r53_record
 
     aws route53 change-resource-record-sets \
     --hosted-zone-id $hosted_zone_id \
