@@ -17,6 +17,10 @@ fi
 for instance in $@
 do
 echo "Creating instance: $instance"
+
+done
+
+
 # instance_id=$(aws ec2 run-instances \
 #     --image-id $ami_id \
 #     --instance-type $instance_type \
@@ -77,4 +81,3 @@ echo "Creating instance: $instance"
 #     }'
 
 # done
-
