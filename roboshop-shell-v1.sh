@@ -1,6 +1,6 @@
 #/bin/bash/
 
-# user_id=$(id -u)
+user_id=$(id -u)
 ami_id="ami-0055977a6e828a4f4"
 instance_type="t3.micro"
 security_group="sg-0bd4a23dde203c42e"
