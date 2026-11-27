@@ -15,8 +15,8 @@ if [ $user_id -ne 0 ]; then
 fi
 
 for instance in $@
-
-echo "Creating instance: $@"
+do
+echo "Creating instance: $instance"
 instance_id=$(aws ec2 run-instances \
     --image-id $ami_id \
     --instance-type $instance_type \
@@ -28,7 +28,7 @@ echo "$instance instance id: $instance_id"
 
 if [ $instance != "frontend" ]; then
     IP=$(aws ec2 describe-instances \
-    --instance-ids i-0123456789abcdef0 \
+    --instance-ids $instance_id \
     --query 'Reservations[0].Instances[0].PrivateIpAddress' \
     --output text)
     
@@ -51,6 +51,8 @@ else
 fi
 
 
+
+
 #Updation of R53 record
 
 aws route53 change-resource-record-sets \
@@ -60,7 +62,7 @@ aws route53 change-resource-record-sets \
             {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "'$domain_name'",
+                    "Name": "'$r53_record'",
                     "Type": "A",
                     "TTL": 1,
                     "ResourceRecords": [
@@ -72,4 +74,6 @@ aws route53 change-resource-record-sets \
             }
         ]
     }'
+
+done
 
