@@ -7,10 +7,10 @@ security_group="sg-0bd4a23dde203c42e"
 hosted_zone_id="Z00465481VWRQZXCOQUPB"
 domain_name="daws92s.cloud"
 
-# if [ $user_id -ne 0 ]; then
-#     echo "Please run the script with sudo access"
-#     exit 1
-# fi
+if [ $user_id -ne 0 ]; then
+    echo "Please run the script with sudo access"
+    exit 1
+fi
 
 for instance in $@
 do 
