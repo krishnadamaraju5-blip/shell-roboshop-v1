@@ -1,6 +1,6 @@
 #!/bin/bash
 
-user_id=$(id -u)
+
 ami_id="ami-0055977a6e828a4f4"
 instance_type="t3.micro"
 domain_name="daws92.cloud"
@@ -9,10 +9,6 @@ security_group="sg-0bd4a23dde203c42e"
 
 
 
-if [ $user_id -ne 0 ]; then
-    echo "Please use the administrative priveleges to run the script"
-    exit 1
-fi
 
 for instance in $@
 do
@@ -21,7 +17,7 @@ echo "Creating instance: $instance"
 instance_id=$(aws ec2 run-instances \
             --image-id $ami_id \
             --instance-type $instance_type \
-            --security-groups "roboshop-common" "roboshop-$instance" \
+            --security-groups $security_group \
             --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=roboshop-$instance}]" \
             --query 'Instances[0].InstanceId' \
             --output text
