@@ -44,7 +44,7 @@ else
     --query 'Reservations[0].Instances[0].PublicIpAddress' \
     --output text)
 
-    r53_record=${instance}
+    r53_record=${domain_name}
 
     echo "$IP"
     echo "$r53_record"
